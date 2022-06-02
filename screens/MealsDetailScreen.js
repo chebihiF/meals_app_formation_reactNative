@@ -13,9 +13,10 @@ const MealsDetailScreen = ({ route, navigation }) => {
     const mealId = route.params.mealId
     const favoriteMealsIds = useSelector((state) => state.favoriteMeals.ids)
     const dispatch = useDispatch();
+    const mealsFavorite = favoriteMealsIds.includes(mealId)
 
     const headerButtonPressedHandler = () => {
-        const mealsFavorite = favoriteMealsIds.includes(mealId)
+        
         console.log(mealsFavorite)
         console.log(favoriteMealsIds)
         console.log(mealId);
@@ -29,10 +30,10 @@ const MealsDetailScreen = ({ route, navigation }) => {
     useLayoutEffect(()=>{
         navigation.setOptions({
             headerRight: ()=>{
-                return <IconButton size={24} color='white' onPress={headerButtonPressedHandler} />
+                return <IconButton name={mealsFavorite? 'star' : 'star-outline'} size={24} color='white' onPress={headerButtonPressedHandler} />
             }
         });
-    },[])
+    },[navigation, headerButtonPressedHandler])
 
 
     
