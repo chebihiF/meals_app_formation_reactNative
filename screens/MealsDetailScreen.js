@@ -5,11 +5,25 @@ import MealDetails from "../components/MealDetails";
 import { MEALS } from "../data/dummy-data";
 import { useLayoutEffect } from "react";
 import IconButton from "../components/IconButton";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite, removeFavorite } from '../store/redux/favotites'
 
 const MealsDetailScreen = ({ route, navigation }) => {
 
+    const mealId = route.params.mealId
+    const favoriteMealsIds = useSelector((state) => state.favoriteMeals.ids)
+    const dispatch = useDispatch();
+
     const headerButtonPressedHandler = () => {
-        console.log("tapped");
+        const mealsFavorite = favoriteMealsIds.includes(mealId)
+        console.log(mealsFavorite)
+        console.log(favoriteMealsIds)
+        console.log(mealId);
+        if(mealsFavorite){
+            dispatch(removeFavorite({id: mealId}))
+        }else{
+            dispatch(addFavorite({id: mealId}))
+        }
     }
     
     useLayoutEffect(()=>{
