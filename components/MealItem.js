@@ -6,8 +6,9 @@ import {
     StyleSheet,
     Platform
 } from 'react-native'
+import MealDetails from './MealDetails';
 
-const MealItem = (title, imageUrl, duration, complexity, affordability) => {
+const MealItem = ({title, imageUrl, duration, complexity, affordability}) => {
     return (
         <View style={styles.mealItem}>
             <Pressable
@@ -15,14 +16,10 @@ const MealItem = (title, imageUrl, duration, complexity, affordability) => {
                 style={({pressed}) => (pressed ? styles.buttonPressed : null)}
             >
                 <View style={styles.innerContainer}>
-                    <Image source={{uri: imageUrl}} />
+                    <Image source={{uri: imageUrl}} style={styles.image} />
                     <Text style={styles.title}>{title}</Text>
                 </View>
-                <View style={styles.details}>
-                    <Text style={styles.detailItem}>{duration}</Text>
-                    <Text style={styles.detailItem}>{complexity}</Text>
-                    <Text style={styles.detailItem}>{affordability}</Text>
-                </View>
+                <MealDetails duration={duration} complexity={complexity} affordability = {affordability} />
             </Pressable>
         </View>
     );
