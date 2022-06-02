@@ -3,8 +3,24 @@ import List from "../components/MealDetail/List";
 import Subtitle from "../components/MealDetail/Subtitle";
 import MealDetails from "../components/MealDetails";
 import { MEALS } from "../data/dummy-data";
+import { useLayoutEffect } from "react";
+import IconButton from "../components/IconButton";
 
-const MealsDetailScreen = ({ route }) => {
+const MealsDetailScreen = ({ route, navigation }) => {
+
+    const headerButtonPressedHandler = () => {
+        console.log("tapped");
+    }
+    
+    useLayoutEffect(()=>{
+        navigation.setOptions({
+            headerRight: ()=>{
+                return <IconButton size={24} color='white' onPress={headerButtonPressedHandler} />
+            }
+        });
+    },[])
+
+
     
     const selectMeal = MEALS.find((meal)=>meal.id === route.params.mealId)
     
