@@ -1,4 +1,7 @@
-import { Image, ScrollView } from "react-native";
+import { Image, ScrollView, View, StyleSheet,Text } from "react-native";
+import List from "../components/MealDetail/List";
+import Subtitle from "../components/MealDetail/Subtitle";
+import MealDetails from "../components/MealDetails";
 import { MEALS } from "../data/dummy-data";
 
 const MealsDetailScreen = ({ route }) => {
@@ -6,18 +9,52 @@ const MealsDetailScreen = ({ route }) => {
     const selectMeal = MEALS.find((meal)=>meal.id === route.params.mealId)
     
     return (
-        <ScrollView>
-            <Image source={{uri: selectMeal.imageUrl}} />
-            <Text>{selectMeal.title}</Text>
+        <ScrollView style={styles.rootContainer}>
+            <Image source={{uri: selectMeal.imageUrl}} style={styles.image} />
+            <Text style={styles.title}>{selectMeal.title}</Text>
             <MealDetails
                 duration ={selectMeal.duration}
                 complexity = {selectMeal.complexity}
                 affordability ={selectMeal.affordability}
                 styleText = {styles.detailText}
             />
-            
+            <View style={styles.listOuterContainer}>
+                <View style={styles.listContainer}>
+                    <Subtitle>Ingredients</Subtitle>
+                    <List data={selectMeal.ingredients} />
+                    <Subtitle>Steps</Subtitle>
+                    <List data={selectMeal.steps} />
+                </View>
+            </View>
+
         </ScrollView>
     );
 }
 
 export default MealsDetailScreen;
+
+const styles = StyleSheet.create({
+    rootContainer: {
+      marginBottom: 32
+    },
+    image: {
+      width: '100%',
+      height: 350,
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: 24,
+      margin: 8,
+      textAlign: 'center',
+      color: 'white',
+    },
+    detailText: {
+      color: 'white',
+    },
+    listOuterContainer: {
+      alignItems: 'center',
+    },
+    listContainer: {
+      width: '80%',
+    },
+  });
